@@ -7,6 +7,6 @@ app.use(express.json());
 connectDB();
 app.use("/products/companies", require("./Routes/CompanyRoute"));
 
-app.listen(8000, () => {
+app.listen(process.env.PORT, () => {
   console.log(`hi im ${process.env.PORT}`);
 });
