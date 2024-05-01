@@ -5,8 +5,5 @@ const {
 } = require("../controller/CompanyController");
 const router = express.Router();
 router.post("/add", Createcompany);
-router.get(
-  "/:companyname/categories/:categoryname/products?top=n&minPrice=p&maxPrice=q",
-  Showcompany
-);
+router.get("/:companyname/categories/:categoryname/products", Showcompany);
 module.exports = router;

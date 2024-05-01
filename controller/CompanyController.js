@@ -26,7 +26,34 @@ const Createcompany = async (req, res) => {
   }
 };
 const Showcompany = async (req, res) => {
-  const { companyname, categoryname, top, minPrice, maxPrice } = req.params;
-  console.log(companyname, minPrice, top);
+  const { companyname, categoryname } = req.params;
+  const { top, minPrice, maxPrice } = req.query;
+  try {
+    if (companyname && categoryname) {
+      if (top) {
+        if (minPrice && maxPrice) {
+          const data = await Company.find({
+            company: companyname,
+            category: categoryname,
+            price: { $gte: minPrice, $lte: maxPrice },
+          }).limit(top);
+          res.json(data);
+        } else {
+          const data = await Company.find({
+            company: companyname,
+            category: categoryname,
+          }).limit(top);
+          res.json(data);
+        }
+      } else {
+        const data = await Company.find({
+          company: companyname,
+          category: categoryname,
+        });
+        res.json(data);
+      }
+      console.log(data);
+    }
+  } catch (error) {}
 };
 module.exports = { Createcompany, Showcompany };
